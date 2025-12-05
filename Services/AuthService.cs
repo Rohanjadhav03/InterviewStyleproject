@@ -56,7 +56,8 @@ namespace PracticeApi.Services
             var user = new UserAuth
             {
                 Username = requeset.Username,
-                Password = hashed
+                Password = hashed,
+                Role = "User"
             };
             return await Repo.RegisterAsync(user);
         }
@@ -78,9 +79,10 @@ namespace PracticeApi.Services
 
             var claims = new[]
             {
-        new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
-        new Claim("UserId", user.UserId.ToString())
-    };
+              new Claim(JwtRegisteredClaimNames.UniqueName, user.Username),
+              new Claim("UserId", user.UserId.ToString()),
+              new Claim(ClaimTypes.Role, user.Role)
+             };
 
             var token = new JwtSecurityToken(
                 issuer: Config["Jwt:Issuer"],

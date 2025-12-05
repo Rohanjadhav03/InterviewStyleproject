@@ -19,6 +19,7 @@ namespace PracticeApi.Controllers
             Service = _Service;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
@@ -29,29 +30,26 @@ namespace PracticeApi.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUesr([FromBody] User user)
+        public async Task<IActionResult> CreateUser([FromBody] User user)
         {
             try
             {
                 var result = await Service.CreateUserAsync(user);
-                return Ok(new {message = "User Created Successfully",affectedrows=result});
+                return Ok(new { message = "User Created Successfully", affectedrows = result });
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
-
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> CreateUesr(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
             try
             {
@@ -62,8 +60,6 @@ namespace PracticeApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
         }
     }
 }

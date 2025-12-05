@@ -29,18 +29,20 @@ namespace PracticeApi.Data.Repository
             {
                 UserId = Convert.ToInt32(row["UserId"]),
                 Username = row["Username"].ToString(),
-                Password = row["UPassword"].ToString()
+                Password = row["UPassword"].ToString(),
+                Role = row["Role"].ToString()
             };
         }
 
         public Task<int> RegisterAsync(UserAuth user)
         {
-            string query = "INSERT INTO Usertbl (Username,UPassword) VALUES(@Username,@UPassword)";
+            string query = "INSERT INTO Usertbl (Username,UPassword,Role) VALUES(@Username,@UPassword,@Role)";
 
             var param = new List<SqlParameter>
             {
                 new SqlParameter("@Username",user.Username),
-                new SqlParameter("@UPassword",user.Password)
+                new SqlParameter("@UPassword",user.Password),
+                new SqlParameter("@Role", user.Role)
             };
             return DB.ExecuteNonQueryAsync(query, param);
         }
@@ -78,7 +80,8 @@ namespace PracticeApi.Data.Repository
                 Username = row["Username"].ToString(),
                 Password = row["UPassword"].ToString(),
                 RefreshToken = row["RefreshToken"].ToString(),
-                RefreshTokenExpiry = Convert.ToDateTime(row["RefreshTokenExpiry"])
+                RefreshTokenExpiry = Convert.ToDateTime(row["RefreshTokenExpiry"]),
+                Role = row["Role"].ToString()
             };
         }
     }

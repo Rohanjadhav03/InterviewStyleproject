@@ -37,5 +37,20 @@ namespace PracticeApi.Controllers
             var response = await Authservice.RefreshTokenAsync(refreshToken);
             return Ok(response);
         }
+
+        [Authorize]
+        [HttpGet("profile")]
+        public IActionResult GetProfile()
+        {
+            string username = User.Identity.Name;
+            int userId = int.Parse(User.FindFirst("UserId")?.Value);
+
+            return Ok(new
+            {
+                Message = "Profile fetched",
+                UserId = userId,
+                Username = username
+            });
+        }
     }
 }
