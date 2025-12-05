@@ -1,3 +1,6 @@
+url structure http://localhost:{PORT}/api/{ControllerName}/{ActionName}/{parameters}
+
+
 CREATE TABLE Departments
 (
     DeptId INT IDENTITY(1,1) PRIMARY KEY,
@@ -45,6 +48,7 @@ select DeptName ,COUNT(*) from Departments group by DeptName
 select DeptName ,COUNT(*) from Departments group by DeptName HAVING COUNT(DeptName)>1
 
 select * from Departments where DeptName like '%ket%'
+
 
 
 select  max(d.DeptId) ,DeptName from Departments d group by DeptName 
